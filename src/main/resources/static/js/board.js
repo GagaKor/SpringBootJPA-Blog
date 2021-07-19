@@ -12,6 +12,9 @@ let index ={
 		$("#btn-update").on("click", ()=>{ //function(){}, ()=>{} this를 바인딩하기 위해서 사용
 			this.update();
 		});
+		$("#btn-reply-save").on("click", ()=>{ 
+				this.replySave();
+			});
 	},
 	
 	save:function(){
@@ -68,7 +71,40 @@ let index ={
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		});
-	}
+	},
+	replySave: function(){
+			let data = {
+					userId: $("#userId").val(),
+					boardId: $("#boardId").val(),
+					content: $("#reply-content").val()
+			};
+			
+			$.ajax({ 
+				type: "POST",
+				url: `/api/board/${data.boardId}/reply`,
+				data: JSON.stringify(data),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json"
+			}).done(function(resp){
+				alert("댓글작성이 완료되었습니다.");
+				location.href = `/board/${data.boardId}`;
+			}).fail(function(error){
+				alert(JSON.stringify(error));
+			}); 
+		},
+		
+		replyDelete : function(boardId, replyId){
+			$.ajax({ 
+				type: "DELETE",
+				url: `/api/board/${boardId}/reply/${replyId}`,
+				dataType: "json"
+			}).done(function(resp){
+				alert("댓글삭제 성공");
+				location.href = `/board/${boardId}`;
+			}).fail(function(error){
+				alert(JSON.stringify(error));
+			}); 
+		}
 }
 
 index.init();
