@@ -26,8 +26,12 @@ let index ={
 			contentType:"application/json;charset=utf-8",
 			dataType:"json"
 		}).done(function(resp){
-			alert("회원가입 완료!");
+			if(resp.status === 500){
+				alert("회원가입 실패!");
+			}else{
+				alert("회원가입 완료!");
 			location.href = "/";
+			}	
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); //ajax 통신을 이용해서 3개의 데이터를 json 형식으로 받음 

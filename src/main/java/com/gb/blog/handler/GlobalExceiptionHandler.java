@@ -12,6 +12,6 @@ import com.gb.blog.dto.ResponseDTO;
 public class GlobalExceiptionHandler {
 	@ExceptionHandler(value = Exception.class)
 	public  ResponseDTO<String> handleArgumentExceiption(Exception e) {
-		return new ResponseDTO<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+		return new ResponseDTO<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage()); //500
 	}
 }
